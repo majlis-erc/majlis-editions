@@ -1,0 +1,116 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "MAJLIS Custom API",
+        "description": "Custom API endpoints for MAJLIS parallel text editions"
+    },
+    "servers": [
+        {
+            "description": "Local development server",
+            "url": "/exist/apps/majlis-editions"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "basicAuth": {
+                "type": "http",
+                "scheme": "basic"
+            },
+            "cookieAuth": {
+                "type": "apiKey",
+                "name": "teipublisher.com.login",
+                "in": "cookie"
+            }
+        }
+    },
+    "paths": {"/api/edition-sections": {
+    "get": {
+        "summary": "Get all section IDs from original text",
+        "operationId": "custom:edition-sections",
+        "parameters": [
+            {
+                "name": "doc",
+                "in": "query",
+                "required": true,
+                "schema": {
+                    "type": "string"
+                }
+            }
+        ],
+        "responses": {
+            "200": {
+                "description": "Returns array of section IDs",
+                "content": {
+                    "application/json": {
+                        "schema": {"type": "array"}
+                    }
+                }
+            }
+        }
+    }
+},
+        "/api/edition-toc": {
+            "get": {
+                "summary": "Retrieve TOC for original text only",
+                "description": "Generates a TOC based on div[@type='original-ar-Hebr'] structure",
+                "tags": ["documents"],
+                "operationId": "custom:edition-toc",
+                "parameters": [
+                    {
+                        "name": "doc",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "Muht-Test-ids.xml"
+                        }
+                    },
+                    {
+                        "name": "target",
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "example": "transcription"
+                        },
+                        "description": "Event channel for navigation"
+                    },
+                    {
+                        "name": "icons",
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean",
+                            "default": true
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Returns the TOC as HTML",
+                        "content": {
+                            "text/html": {
+                                "schema": {"type": "string"}
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Document not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {"type": "object"}
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "security": [
+        {
+            "cookieAuth": []
+        },
+        {
+            "basicAuth": []
+        }
+    ]
+}

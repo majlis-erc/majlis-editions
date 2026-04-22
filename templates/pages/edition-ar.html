@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes"/>
+        <link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-16.png" sizes="16x16"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-24.png" sizes="24x24"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-32.png" sizes="32x32"/>
+        <link rel="shortcut icon" type="image/png" href="resources/images/favicon-64.png" sizes="64x64"/>
+   
+        <title data-template="config:app-title"/>
+        <meta name="description" content="MAJLIS Edition (Arabic only)"/>
+        <meta name="pb-template" content="edition-ar.html"/>
+        
+        <link rel="stylesheet" href="resources/css/theme.css"/>
+        <script type="module" src="pb-components-bundle.js" data-template="pages:load-components"/>
+        <!--<script type="text/javascript" src="resources/scripts/edition-maps.js"/>-->
+    <custom-style>
+        <style include="pb-common-styles">
+            body {
+                --pb-view-height: calc(100vh - 192px);
+                --pb-facsimile-height: calc(var(--pb-view-height) - 89px);
+            }
+            
+            /* Prevent casual users from copying text */
+            .content-body {
+                -webkit-user-select: none; /* Safari */
+                -moz-user-select: none;    /* Firefox */
+                -ms-user-select: none;     /* IE10+/Edge */
+                user-select: none;         /* Standard */
+            }
+            
+            pb-facsimile {
+                min-width: 480px;
+                height: var(--pb-facsimile-height);
+            }
+
+            .facscaption {
+                font-size: 75%;
+                text-align: right;
+            }
+
+            .metadata {
+                max-width: 20vw;
+            }
+
+            .content-body {
+                position: relative;
+                display: flex;
+                justify-content: center;
+                padding: 0 20px;
+                margin-top: 20px;
+            }
+
+            .content-body pb-view {
+                flex: 1 1;
+            }
+
+            .toc-toggle {
+                display: none;
+            }
+
+            .breadcrumbs {
+                display: flex;
+                justify-content: space-between;
+                align-self: center;
+                background-color: #00c353;
+                margin-top: -1px;
+            }
+/* Force toolbar to not create a restrictive stacking context */
+app-toolbar.toolbar {
+    z-index: auto !important;
+    overflow: visible !important;
+}
+
+app-header {
+    overflow: visible !important;
+}
+
+/* TOC Dropdown */
+.toc-dropdown {
+    position: relative;
+    display: inline-block;
+    z-index: 10001;
+}
+
+.toc-dropdown {
+    padding: 10px 16px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+}
+
+button {
+  background-color: white;
+  border: 2px solid #00c353;
+  border-radius: 30px;
+  color: black;
+  padding: 12px 28px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #00c353;
+  color: white;
+}
+
+.toc-dropdown-content {
+    display: none;
+    position: absolute;
+    top: calc(100% - 10px);
+    left: 0;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    max-height: 50vh;
+    overflow-y: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 10001;
+    padding-top: 26px;
+    padding-left: 16px;
+    padding-right: 16px;
+    padding-bottom: 16px;
+    direction: ltr;
+}
+
+.toc-dropdown:hover .toc-dropdown-content {
+    display: block;
+}
+
+/* Get rid of bulletpoints in TOC Dropdown */
+.toc-dropdown-content ul {
+    list-style: none !important;
+    list-style-type: none !important;
+    padding-left: 16px;
+    margin: 0;
+}
+
+.toc-dropdown-content &gt; ul,
+.toc-dropdown-content ul.edition-toc {
+    padding-left: 0;
+}
+
+.toc-dropdown-content li {
+    list-style: none !important;
+    list-style-type: none !important;
+}
+
+pb-grid-action {
+    padding-top: 15px;
+}
+           
+        </style>
+    </custom-style>
+    </head>
+        <body>
+            <pb-page data-template="pages:pb-page" unresolved="unresolved">
+                <pb-document id="document1" data-template="pages:pb-document"/>
+                <app-drawer-layout force-narrow="force-narrow">
+                    <app-header-layout>
+                        <app-header slot="header" reveals="reveals" fixed="fixed" effects="waterfall">
+                            <app-toolbar data-template="lib:include" data-template-path="templates/menu.html"/>
+                            <app-toolbar class="toolbar" sticky="sticky">
+    <div id="toolbar-start" style="display: none"/>
+    <pb-zoom emit="transcription" direction="in" icon="icons:zoom-in"/>
+    <pb-zoom emit="transcription" direction="out" icon="icons:zoom-out"/>
+    
+        <div class="toc-dropdown">
+    <button>Table of Contents</button>
+    <div class="toc-dropdown-content">
+        <pb-load id="toc" url="api/edition-toc?target=transcription&amp;icons=true" src="document1" subscribe="toc" auto="auto">
+            Loading...
+        </pb-load>
+    </div>
+</div>
+<paper-icon-button id="prevSection" icon="icons:chevron-left" title="Previous Section"/>
+<paper-icon-button id="nextSection" icon="icons:chevron-right" title="Next Section"/>
+
+
+    <!--<pb-navigation emit="transcription" keyboard="left" subscribe="transcription" direction="backward" unit="page">
+        <paper-icon-button icon="icons:chevron-left"/>
+    </pb-navigation>
+    <pb-navigation emit="transcription" keyboard="right" subscribe="transcription" direction="forward" unit="page">
+        <paper-icon-button icon="icons:chevron-right"/>
+    </pb-navigation>-->
+
+    <pb-progress subscribe="transcription" indeterminate="indeterminate" bottom-item="bottom-item"/>
+</app-toolbar>
+                            <section class="breadcrumbs">
+                            <div>
+                                <pb-view id="title-view1" src="document1" xpath="//teiHeader" view="single">
+                                    <pb-param name="header" value="edition"/>
+                                </pb-view>
+                            </div>
+                            <pb-grid-action action="add" class="grid-add" grid="#grid">
+                                <paper-button>
+                                    <iron-icon icon="icons:view-carousel"/> <pb-i18n key="document.add-panel">Add</pb-i18n>
+                                </paper-button>
+                            </pb-grid-action>
+        <paper-icon-button id="tocToggle" class="toc-toggle" icon="icons:view-list"/>
+                        </section>
+                        </app-header>
+                        <main class="content-body">
+                        <!-- Adjust which pb-views are displayed by default and in which order by referencing their number in "panel" (starting from 0) -->
+                            <pb-grid id="grid" panels="[0,1]" subscribe="transcription" emit="transcription">
+                                <template>
+                                    <!-- template used for adding a new column: user can choose between translation, facsimile and notes -->
+                                    <pb-panel emit="transcription">
+                                        <!-- Added to the toolbar -->
+                                        <pb-grid-action grid="#grid" slot="toolbar" action="remove">
+                                            <paper-icon-button icon="icons:close"/>
+                                        </pb-grid-action>
+                                        <template title="Arabic Text">
+    <pb-view src="document1" class=".transcription" xpath="//div[starts-with(@type,'main-')]" map="majlis-original" subscribe="transcription" emit="transcription">
+        <pb-param name="view" value="arabic"/>
+    </pb-view>
+</template>
+                                        <template title="Facsimile">
+                                            <pb-facsimile subscribe="transcription" type="image" base-uri="resources/scans/" default-zoom-level="0" show-navigation-control="show-navigation-control" mode="page">
+                                            </pb-facsimile>
+                                            <div class="facscaption">Images provided by <a href="https://www.nli.org.il/en/discover/manuscripts/hebrew-manuscripts">Ktiv</a>
+                                            </div>
+                                        </template>
+                                        <template title="Metadata">
+                                            <pb-view src="document1" xpath="//teiHeader" view="single" class="metadata" subscribe="transcription" emit="transcription">
+                                            <pb-param name="view" value="metadata"/>
+                                            </pb-view>
+                                        </template>
+                                    </pb-panel>
+                                </template>
+                                <!-- Should we have fixed windows for Judeo-Arabic text and facsimile? -->
+                                <!--<pb-view src="document1" class=".transcription" xpath="//div[@type='original-ar-Hebr']" subscribe="transcription" emit="transcription">
+                                                <pb-param name="view" value="hebrew"/>
+                                        </pb-view>
+                                <pb-facsimile subscribe="transcription" type="image" base-uri="http://localhost:8080/exist/apps/majlis-editions/" default-zoom-level="0" show-navigation-control="show-navigation-control" mode="page">
+                                            </pb-facsimile>
+                                            <div class="facscaption">Images provided by <a href="https://www.nli.org.il/en/discover/manuscripts/hebrew-manuscripts">Ktiv</a>
+                                            </div>-->
+                                <!-- For the transcription, users can choose between diplomatic and normalized view -->
+                                <!--  <pb-panel emit="transcription">
+                                        <template title="Judeo-Arabic Text + Line Endings">
+                                            <pb-view src="document1" class=".transcription" xpath="//div[@type='original-ar-Hebr']" subscribe="transcription" emit="transcription">
+                                                <pb-param name="view" value="hebrew"/>
+                                        </pb-view>
+                                        </template>
+                                        
+                        </pb-panel>-->
+                            </pb-grid>
+                        </main>
+                    </app-header-layout>
+                </app-drawer-layout>
+            </pb-page>
+            <div class="splash"/>
+<script>
+//
+console.log('Script starting');
+
+window.addEventListener('load', function() {
+    console.log('Window loaded');
+    
+    var pageIds = [];
+    var currentIndex = 0;
+    var isLoading = false;
+    var mainViewXpath = null;
+    
+    function getDocPath() {
+        var pbDoc = document.getElementById('document1');
+        if (pbDoc) {
+            return pbDoc.getAttribute('path');
+        }
+        return null;
+    }
+    
+    function findMainView() {
+        var views = document.querySelectorAll('pb-view');
+        for (var i = 0; i &lt; views.length; i++) {
+            var view = views[i];
+            var xpath = view.getAttribute('xpath') || '';
+            // Look for xpath containing 'main-'
+            if (xpath.indexOf('main-') !== -1) {
+                mainViewXpath = xpath;
+                return view;
+            }
+        }
+        return null;
+    }
+    
+    function loadPageIds(callback) {
+        var docPath = getDocPath();
+        if (!docPath) {
+            console.log('Document path not found');
+            return;
+        }
+        
+        console.log('Loading page IDs for:', docPath);
+        
+        fetch('api/edition-sections?doc=' + encodeURIComponent(docPath))
+            .then(function(response) {
+                return response.json();
+            })
+            .then(function(data) {
+                pageIds = data;
+                console.log('Page IDs loaded:', pageIds.length);
+                console.log('All pages:', pageIds);
+                if (callback) callback();
+            })
+            .catch(function(error) {
+                console.error('Error loading page IDs:', error);
+            });
+    }
+    
+    function detectCurrentIndex() {
+        var view = findMainView();
+        if (view &amp;&amp; view.shadowRoot) {
+            // Find the current page indicator (pb-facs-link or similar)
+            var pbLink = view.shadowRoot.querySelector('pb-facs-link');
+            if (pbLink) {
+                var facs = pbLink.getAttribute('facs');
+                if (facs) {
+                    facs = facs.replace(/^#/, '');
+                    var idx = pageIds.indexOf(facs);
+                    if (idx !== -1) {
+                        console.log('Detected current page:', facs, 'index:', idx);
+                        return idx;
+                    }
+                }
+            }
+            
+            // Fallback: look for data-facs attribute
+            var pbEl = view.shadowRoot.querySelector('[data-facs]');
+            if (pbEl) {
+                var facs = pbEl.getAttribute('data-facs').replace(/^#/, '');
+                var idx = pageIds.indexOf(facs);
+                if (idx !== -1) {
+                    console.log('Detected current page via data-facs:', facs, 'index:', idx);
+                    return idx;
+                }
+            }
+        }
+        return currentIndex;
+    }
+    
+    function navigateTo(pageId) {
+        if (isLoading) return;
+        isLoading = true;
+        
+        console.log('Navigating to page:', pageId);
+        pbEvents.emit('pb-refresh', 'transcription', {
+            id: pageId
+        });
+        
+        setTimeout(function() {
+            isLoading = false;
+        }, 500);
+    }
+    
+    function goToPrev() {
+        if (pageIds.length === 0) {
+            loadPageIds(goToPrev);
+            return;
+        }
+        
+        console.log('Prev: current index:', currentIndex, 'of', pageIds.length);
+        
+        if (currentIndex &gt; 0) {
+            currentIndex--;
+            console.log('Going to index:', currentIndex, '=', pageIds[currentIndex]);
+            navigateTo(pageIds[currentIndex]);
+        } else {
+            console.log('Already at first page');
+        }
+    }
+    
+    function goToNext() {
+        if (pageIds.length === 0) {
+            loadPageIds(goToNext);
+            return;
+        }
+        
+        console.log('Next: current index:', currentIndex, 'of', pageIds.length);
+        
+        if (currentIndex &lt; pageIds.length - 1) {
+            currentIndex++;
+            console.log('Going to index:', currentIndex, '=', pageIds[currentIndex]);
+            navigateTo(pageIds[currentIndex]);
+        } else {
+            console.log('Already at last page');
+        }
+    }
+    
+    // Sync currentIndex when TOC or other navigation happens
+    pbEvents.subscribe('pb-update', 'transcription', function(ev) {
+        if (pageIds.length === 0) return;
+        
+        setTimeout(function() {
+            var newIndex = detectCurrentIndex();
+            if (newIndex !== currentIndex) {
+                console.log('External navigation detected, updating index from', currentIndex, 'to', newIndex);
+                currentIndex = newIndex;
+            }
+        }, 300);
+    });
+    
+    var prevBtn = document.getElementById('prevSection');
+    var nextBtn = document.getElementById('nextSection');
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            console.log('Prev clicked');
+            goToPrev();
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            console.log('Next clicked');
+            goToNext();
+        });
+    }
+    
+    // Preload page IDs
+    setTimeout(function() {
+        loadPageIds();
+    }, 2000);
+    
+    console.log('Page navigation ready');
+});
+//
+</script>
+        </body>
+</html>

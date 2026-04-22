@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<app-toolbar class="menubar">
+    <a href="${app}/index.html" class="logo" data-template="pages:parse-params"/>
+    <pb-media-query query="min-width: 1024px">
+        <a href="${app}/index.html" data-template="pages:parse-params">Manuscripts</a>
+        <a href="${app}/index.html" data-template="pages:parse-params">Persons</a>
+        <a href="${app}/index.html" data-template="pages:parse-params">Places</a>
+        <a href="${app}/index.html" data-template="pages:parse-params">Works</a>
+        <a href="${app}/index.html" data-template="pages:parse-params">Relations</a>
+        <a href="${app}/index.html" data-template="pages:parse-params">Texts</a>
+        <pb-restricted>
+            <paper-menu-button>
+                <a slot="dropdown-trigger">
+                    <pb-i18n key="menu.admin.title">Admin</pb-i18n>
+                </a>
+                <paper-listbox slot="dropdown-content">
+                    <paper-item data-template="pages:edit-odd-list"/>
+                    <paper-item>
+                        <pb-download url="api/apps/download">
+                            <pb-i18n key="appgen.xar-download">Download App as .xar</pb-i18n>
+                        </pb-download>
+                    </paper-item>
+                    <paper-item>
+                        <a href="${app}/api.html" data-template="pages:parse-params" target="_blank">API Documentation</a>
+                    </paper-item>
+                    <paper-item>
+                        <a href="https://cdn.tei-publisher.com/" target="_blank">Webcomponents API</a>
+                    </paper-item>
+                </paper-listbox>
+            </paper-menu-button>
+        </pb-restricted>
+   </pb-media-query>
+
+    <!-- Search input -->
+    <pb-search action="${app}/search.html" data-template="pages:parse-params" value="${query}" redirect="redirect"/>
+    <pb-media-query query="min-width: 1024px">
+      <!-- <pb-lang name="lang" data-template="pages:languages"/>-->
+       <pb-login id="login" group="tei"/>
+    </pb-media-query>
+    
+    <pb-media-query query="(max-width: 1023px)">
+        <paper-icon-button icon="icons:menu" drawer-toggle="drawer-toggle"/>
+    </pb-media-query>
+    <div id="menubar-after" style="display: none;"/>
+    <paper-dialog id="downloadDialog">
+        <h2>
+            <pb-i18n key="dialogs.generatingFile">Generating file ...</pb-i18n>
+        </h2>
+        <paper-dialog-scrollable>
+            <pb-i18n key="dialogs.downloadMessage"/>
+        </paper-dialog-scrollable>
+        <div class="buttons">
+            <paper-button dialog-confirm="dialog-confirm" autofocus="autofocus">
+                <pb-i18n key="dialogs.close">Close</pb-i18n>
+            </paper-button>
+        </div>
+    </paper-dialog>
+</app-toolbar>

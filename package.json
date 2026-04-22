@@ -1,0 +1,9 @@
+{
+  "name" : "majlis-editions",
+  "version" : "1.0.0",
+  "description" : "MAJLIS Editions",
+  "dependencies" : {
+    "@teipublisher/pb-components" : "2.24.3",
+    "@jinntec/fore" : "2.4.1"
+  }
+}

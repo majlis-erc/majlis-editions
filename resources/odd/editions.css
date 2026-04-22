@@ -1,0 +1,15 @@
+.diplomatic {
+    direction: rtl;
+    }
+    
+.arabic {
+    direction: rtl;
+    font-family: 'Amiri', 'Scheherazade New', 'Arabic Typesetting', serif;
+    font-size: 22px;
+    
+}
+
+.hebrew {
+    direction: rtl;
+    font-family: 'SBL Hebrew', 'Ezra SIL', 'Times New Roman', serif;
+}
