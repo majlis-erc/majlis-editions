@@ -1,9 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <?teipublisher template="edition-ar.html" view="page"?><TEI xmlns="http://www.tei-c.org/ns/1.0">
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title level="a">Al-Kitāb al-Anwār</title>
+                <title level="a">Kitāb al-Anwār</title>
                 <title level="m">MAJLIS – The Transformation of Jewish Literature in Arabic in the
                     Islamicate World.</title>
                 <author>Yaʿqūb b. Isḥāq al-Qirqisānī</author>

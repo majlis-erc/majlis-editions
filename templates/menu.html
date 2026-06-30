@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <app-toolbar class="menubar">
     <a href="${app}/index.html" class="logo" data-template="pages:parse-params"/>
     <pb-media-query query="min-width: 1024px">
@@ -34,7 +33,7 @@
     <!-- Search input -->
     <pb-search action="${app}/search.html" data-template="pages:parse-params" value="${query}" redirect="redirect"/>
     <pb-media-query query="min-width: 1024px">
-      <!-- <pb-lang name="lang" data-template="pages:languages"/>-->
+      <pb-lang name="lang" data-template="pages:languages" selected="en"/>
        <pb-login id="login" group="tei"/>
     </pb-media-query>
     

@@ -25,69 +25,40 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
  : Transforms ID prefix from main text to target version
  :)
 declare function mapping:majlis-parallel($root as element(), $userParams as map(*)) {
-    let $sourcePrefix := $userParams?source-prefix
     let $targetPrefix := $userParams?target-prefix
-    
-    (: Find the main div and its prefix dynamically if not provided :)
+    let $targetDiv := (root($root)//tei:div[@xml:id = $targetPrefix])[1]
     let $mainDiv := (root($root)//tei:div[starts-with(@type, 'main-')])[1]
-    let $sourcePrefix := if ($sourcePrefix) then $sourcePrefix 
-                         else if ($mainDiv/@xml:id) then string($mainDiv/@xml:id) 
-                         else 'main'
-    
-    (: Check if we're navigating by surface/page :)
-    let $isSurfaceNav := local-name($root) = 'surface' or starts-with(string($root/@xml:id), 'surf-pb-')
-    
-    return if ($isSurfaceNav) then
-        (: For page-based navigation, find the pb in main text, then map to target :)
-        let $facs := if (local-name($root) = 'surface') then '#' || $root/@xml:id 
-                     else '#' || $root/@xml:id
-        let $mainPb := ($mainDiv//tei:pb[@facs = $facs])[1]
-        
-        (: Find the section containing or following this pb :)
-        let $sourceSection := ($mainPb/ancestor::tei:div[@xml:id][starts-with(@xml:id, $sourcePrefix || '_')][1],
-                              $mainPb/following::tei:div[@xml:id][starts-with(@xml:id, $sourcePrefix || '_')][1])[1]
-        let $sourceId := string($sourceSection/@xml:id)
-        
-        let $targetId := 
-            if (starts-with($sourceId, $sourcePrefix || '_')) then
-                $targetPrefix || '_' || substring-after($sourceId, $sourcePrefix || '_')
-            else ()
-        
-        let $targetSection := if ($targetId) then root($root)/id($targetId) else ()
-        
-        return
-            if ($targetSection) then
-                let $precedingPb := ($targetSection/preceding::tei:pb)[last()]
-                let $containedPb := ($targetSection/descendant::tei:pb)[1]
-                return ($containedPb, $precedingPb, $targetSection)[1]
-            else 
-                (root($root)//tei:div[@xml:id = $targetPrefix]//tei:pb)[1]
-    
-    else
-        (: Section-based navigation :)
-        let $sourceSection := (
-            $root/ancestor-or-self::*[@xml:id][starts-with(@xml:id, $sourcePrefix || '_')][1],
-            $root/descendant::*[@xml:id][starts-with(@xml:id, $sourcePrefix || '_')][1],
-            $root/following::*[@xml:id][starts-with(@xml:id, $sourcePrefix || '_')][1],
-            if (starts-with($root/@xml:id, $sourcePrefix)) then $root else ()
-        )[1]
-        
-        let $sourceId := string(($sourceSection/@xml:id, $root/@xml:id)[1])
-        
-        let $targetId := 
-            if (starts-with($sourceId, $sourcePrefix || '_')) then
-                $targetPrefix || '_' || substring-after($sourceId, $sourcePrefix || '_')
-            else ()
-        
-        let $targetSection := if ($targetId) then root($root)/id($targetId) else ()
-        
-        return
-            if ($targetSection) then
-                let $precedingPb := ($targetSection/preceding::tei:pb)[last()]
-                let $containedPb := ($targetSection/descendant::tei:pb)[1]
-                return ($containedPb, $precedingPb, $targetSection)[1]
-            else 
-                (root($root)//tei:div[@xml:id = $targetPrefix]//tei:pb)[1]
+
+    (: Case 1: $root is a surface (id resolved to facsimile) — find the main pb that references it :)
+    let $sourcePb :=
+        if (local-name($root) = 'surface') then
+            ($mainDiv//tei:pb[@facs = '#' || $root/@xml:id])[1]
+        else if (local-name($root) = 'pb') then
+            $root
+        else ()
+
+    return
+        if ($sourcePb) then
+            (: page-aligned editions: match target pb by same facs :)
+            let $facs := string($sourcePb/@facs)
+            let $targetPb := ($targetDiv//tei:pb[@facs = $facs])[1]
+            return ($targetPb, ($targetDiv//tei:pb)[1], $targetDiv)[1]
+        else
+            (: section-aligned editions (Muḥtawī): prefix swap :)
+            let $sourcePrefix := string($mainDiv/@xml:id)
+            let $sourceId := string((
+                $root/ancestor-or-self::*[@xml:id][starts-with(@xml:id, $sourcePrefix || '_')][1]
+            )/@xml:id)
+            let $targetId :=
+                if (starts-with($sourceId, $sourcePrefix || '_')) then
+                    $targetPrefix || '_' || substring-after($sourceId, $sourcePrefix || '_')
+                else ()
+            let $targetNode := if ($targetId != '') then root($root)/id($targetId) else ()
+            return
+                if ($targetNode) then
+                    (($targetNode/descendant::tei:pb)[1], ($targetNode/preceding::tei:pb)[last()], $targetNode)[1]
+                else
+                    (($targetDiv//tei:pb)[1], $targetDiv)[1]
 };
 
 (:~
@@ -180,24 +151,12 @@ return
  : Handles both section IDs and surface IDs (surf-pb-*)
  :)
 declare function mapping:majlis-original($root as element(), $userParams as map(*)) {
-    (: Find the main div dynamically :)
     let $mainDiv := (root($root)//tei:div[starts-with(@type, 'main-')])[1]
-    let $mainPrefix := if ($mainDiv/@xml:id) then string($mainDiv/@xml:id) else 'main'
-    
     return
-        if (local-name($root) = 'pb') then
+        if (local-name($root) = 'surface') then
+            ($mainDiv//tei:pb[@facs = '#' || $root/@xml:id])[1]
+        else if (local-name($root) = 'pb') then
             $root
-        else if (local-name($root) = 'surface') then
-            (: Find the pb that references this surface :)
-            let $facs := '#' || $root/@xml:id
-            return ($mainDiv//tei:pb[@facs = $facs])[1]
-        else if (starts-with(string($root/@xml:id), 'surf-pb-')) then
-            (: ID is a surface reference :)
-            let $facs := '#' || $root/@xml:id
-            return ($mainDiv//tei:pb[@facs = $facs])[1]
         else
-            (: Default: find preceding pb :)
-            let $precedingPb := ($root/preceding::tei:pb)[last()]
-            let $containedPb := ($root/descendant::tei:pb)[1]
-            return ($containedPb, $precedingPb, $root)[1]
+            (($root/descendant::tei:pb)[1], ($root/preceding::tei:pb)[last()], $root)[1]
 };

@@ -110,7 +110,7 @@ declare function facets:display($config as map(*), $nodes as element()+) {
                 if ($fcount > $max) then
                     <paper-checkbox class="facet" name="all-{$config?dimension}">
                         { if (facets:get-parameter("all-" || $config?dimension)) then attribute checked { "checked" } else () }
-                        <pb-i18n key="facets.show">Show top 50</pb-i18n>
+                        Show top 50
                     </paper-checkbox>
                 else
                     ()

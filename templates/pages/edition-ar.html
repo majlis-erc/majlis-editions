@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <html>
     <head>
         <meta charset="utf-8"/>
@@ -65,8 +64,9 @@
                 display: flex;
                 justify-content: space-between;
                 align-self: center;
-                background-color: #00c353;
+                background-color: #00883A;
                 margin-top: -1px;
+                color: #fff;
             }
 /* Force toolbar to not create a restrictive stacking context */
 app-toolbar.toolbar {
@@ -94,7 +94,7 @@ app-header {
 
 button {
   background-color: white;
-  border: 2px solid #00c353;
+  border: 2px solid #00883A;
   border-radius: 30px;
   color: black;
   padding: 12px 28px;
@@ -108,7 +108,7 @@ button {
 }
 
 button:hover {
-  background-color: #00c353;
+  background-color: #00883A;
   color: white;
 }
 
@@ -160,7 +160,7 @@ pb-grid-action {
     </custom-style>
     </head>
         <body>
-            <pb-page data-template="pages:pb-page" unresolved="unresolved">
+            <pb-page data-template="pages:pb-page" language="en" unresolved="unresolved">
                 <pb-document id="document1" data-template="pages:pb-document"/>
                 <app-drawer-layout force-narrow="force-narrow">
                     <app-header-layout>
@@ -224,8 +224,8 @@ pb-grid-action {
                                         <template title="Facsimile">
                                             <pb-facsimile subscribe="transcription" type="image" base-uri="resources/scans/" default-zoom-level="0" show-navigation-control="show-navigation-control" mode="page">
                                             </pb-facsimile>
-                                            <div class="facscaption">Images provided by <a href="https://www.nli.org.il/en/discover/manuscripts/hebrew-manuscripts">Ktiv</a>
-                                            </div>
+                                            <!--<div class="facscaption">Images provided by <a href="https://www.nli.org.il/en/discover/manuscripts/hebrew-manuscripts">Ktiv</a>
+                                            </div>-->
                                         </template>
                                         <template title="Metadata">
                                             <pb-view src="document1" xpath="//teiHeader" view="single" class="metadata" subscribe="transcription" emit="transcription">

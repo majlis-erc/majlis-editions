@@ -1,2 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <meta xmlns="http://exist-db.org/xquery/repo"><description>MAJLIS Editions</description><author/><status>beta</status><license>GNU-LGPL</license><copyright>true</copyright><type>application</type><prepare>pre-install.xql</prepare><finish>post-install.xql</finish><target>majlis-editions</target><permissions user="ilanot-admin" group="tei" mode="rw-r--r--"/><deployed>2026-01-13T15:24:01.81+02:00</deployed></meta>

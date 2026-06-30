@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <?xml-model href="teipublisher_odds.xsd"?><TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:pb="http://teipublisher.com/1.0" xml:lang="en"><teiHeader><fileDesc>
             <titleStmt><title>MAJLIS Editions</title></titleStmt>
             <publicationStmt>
@@ -43,7 +42,15 @@
             <param name="highlight-self" value="'highlight-self'"/>
         </model><model predicate="$parameters?view='notes'" behaviour="inline">
             <param name="content" value="//note[@type='comment']"/>
-        </model><model predicate="$parameters?view='hebrew'" behaviour="inline" cssClass="hebrew"/><model output="web" predicate="$parameters?view='arabic'" behaviour="block" cssClass="arabic"/><model predicate="@type='title_page'" behaviour="block">
+        </model><model predicate="$parameters?view='hebrew'" behaviour="inline" cssClass="hebrew">
+            <outputRendition xml:space="preserve">
+            
+            </outputRendition>
+        </model><model output="web" predicate="$parameters?view='arabic'" behaviour="block" cssClass="arabic">
+            <outputRendition xml:space="preserve">
+            
+            </outputRendition>
+        </model><model predicate="@type='title_page'" behaviour="block">
             <outputRendition xml:space="preserve">
             border: 1px solid black; padding: 5px;
             </outputRendition>
@@ -133,12 +140,16 @@
             
             
             
+            
+            
             font-size: .85em;
 background-color: #C0C0C0;
 padding: 0 .25em;
 border-right: 1px solid black;
 text-indent: 0;
 margin: 0 .25em;
+            
+            
             
             
             
@@ -163,15 +174,11 @@ margin: 0 .25em;
             <param name="emit" value="'transcription'"/>
             <param name="content" value="@f || '' || @n"/>
             <outputRendition xml:space="preserve">
-            
-            
             font-size: .85em;
 background-color: #C0C0C0;
 border-left: 1px solid black;
 border-right: 1px solid black;
 padding: 0 1em;
-            
-            
             </outputRendition>
         </model><model predicate="starts-with(@facs, 'iiif:')" behaviour="webcomponent">
             <desc>If facs attribute starts with iiif prefix, use the trailing part as a link to the IIIF image</desc>
@@ -183,7 +190,7 @@ padding: 0 1em;
             <param name="type" value="'page'"/>
             <param name="label" value="(concat(if(@n) then concat(@n,' ') else '',if(@facs) then                   concat('@',@facs) else ''))"/>
             <outputRendition xml:space="preserve">
-            display: block; margin-left: 4pt; color: grey; float: right;
+            display: block; margin-left: 4pt; color: grey; float: right; direction: rtl;
             </outputRendition>
             <outputRendition xml:space="preserve" scope="before">
             content: '|';
@@ -212,7 +219,7 @@ padding: 0 1em;
         </model><model behaviour="break" useSourceRendition="true">
             <param name="type" value="'line'"/>
             <param name="label" value="@n"/>
-        </model></elementSpec><elementSpec ident="p" mode="change"><model output="print" predicate="ancestor::note" behaviour="inline"/><model predicate="$parameters?view='diplo'" behaviour="inline" cssClass="diplomatic">
+        </model></elementSpec><elementSpec ident="p" mode="change"><model predicate="$parameters?view='diplo'" behaviour="inline" cssClass="diplomatic">
             <outputRendition xml:space="preserve">
             color: red;
             </outputRendition>
@@ -247,7 +254,7 @@ padding: 0 1em;
         </model><model predicate="parent::div" behaviour="heading">
             <param name="level" value="count(ancestor::div)"/>
             <outputRendition xml:space="preserve">
-            direction: ltr;
+            direction: rtl;
             </outputRendition>
         </model><model behaviour="block"/></elementSpec><elementSpec ident="foreign" mode="change"><model predicate="xml:lang='ar'" behaviour="inline" cssClass="arabic"/><model predicate="xml:lang='he'" behaviour="inline" cssClass="hebrew"/><model behaviour="inline"/></elementSpec></schemaSpec>
         </body>

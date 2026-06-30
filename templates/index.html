@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <html>
 
 <head>
@@ -85,7 +84,7 @@
             }
             ;
             --paper-card-header: {
-                background-color: #00c353
+                background-color: #00883A
             }
             ;
             --paper-card-header-text: {
@@ -189,7 +188,7 @@
         
         .documents a,
         .documents a:visited {
-            color: #00c353;
+            color: #00883A;
             text-decoration: none;
         }
         .documents a h2,
@@ -203,14 +202,14 @@
             flex-direction: row;
             margin-bottom: 10px;
             padding: 8px 8px 8px 8px;
-            border: 3px solid #00c353;
+            border: 3px solid #00883A;
             width: 50%
         }
         
         .documents li:hover, 
         .document:hover a,
         .document:hover a h2 {
-        background-color: #00c353;
+        background-color: #00883A;
         color: white;
         }
         
@@ -282,7 +281,7 @@ li app-toolbar {
 </head>
 
 <body>
-    <pb-page data-template="pages:pb-page" api-version="1.0" unresolved="unresolved" theme="resources/css/components.css">
+    <pb-page data-template="pages:pb-page" api-version="1.0" language="en" unresolved="unresolved" theme="resources/css/components.css">
         <app-drawer-layout force-narrow="force-narrow">
             <app-drawer slot="drawer" align="right">
                 <div class="drawer-content">
@@ -302,39 +301,39 @@ li app-toolbar {
                         <h1 class="tp-title" data-template="config:app-title"/>
                     </section>
                     <section class="panels">
-                        <paper-card class="doclist" data-i18n="[heading]browse.documents" heading="documents">
+                        <paper-card class="doclist" heading="Documents">
                             <div class="card-content">
                                 <div class="browse">
                                     <aside data-template="browse:form">
                                         <!--pb-custom-form class="options" auto-submit="[name=sort]" emit="search"-->
                                         <pb-custom-form class="options">
                                             <input type="hidden" name="collection" value="${collection}" data-template="pages:parse-params"/>
-                                            <pb-select label="browse.sort" name="sort" value="${sort}" data-template="pages:parse-params">
+                                            <pb-select label="Browse Sort" name="sort" value="${sort}" data-template="pages:parse-params">
                                                 <paper-item value="title">
-                                                        <pb-i18n key="browse.title"/>
+                                                        Browse Title
                                                     </paper-item>
                                                 <paper-item value="author">
-                                                        <pb-i18n key="browse.author"/>
+                                                        Browse Author
                                                     </paper-item>
                                             </pb-select>
-                                            <pb-select label="search.scope" name="field" value="${field}" data-template="pages:parse-params">
+                                            <pb-select label="Search Scope" name="field" value="${field}" data-template="pages:parse-params">
                                                 <paper-item value="text">
-                                                        <pb-i18n key="search.content"/>
+                                                        Search Text
                                                     </paper-item>
                                                 <paper-item value="title">
-                                                        <pb-i18n key="search.title"/>
+                                                        Search Title
                                                     </paper-item>
                                             </pb-select>
                                         </pb-custom-form>
                                         <pb-search id="search-form" subscribe="search" data-template="pages:parse-params" value="${query}" subforms=".facets,.options" submit-on-load="submit-on-load">
                                             <paper-button slot="searchButton">
-                                                    <pb-i18n key="search.search">Search</pb-i18n>
+                                                    Search
                                                 </paper-button>
                                         </pb-search>
                                         <pb-custom-form class="facets" url="api/search/facets" event="pb-results-received" subscribe="search" emit="search"/>
                                     </aside>
                                     <div id="document-list">
-                                        <pb-paginate id="paginate" per-page="10" range="5" subscribe="search" emit="search"/>
+                                        <pb-paginate foundLabel="Browse Items" id="paginate" per-page="10" range="5" subscribe="search" emit="search"/>
                                         <pb-load url="api/collection/{collection}" expand="" emit="search"/>
                                         <!--pb-browse url="api/collection" emit="search"></pb-browse-->
                                     </div>
@@ -361,25 +360,25 @@ li app-toolbar {
         </app-drawer-layout>
         <paper-dialog id="downloadDialog">
             <h2>
-                <pb-i18n key="dialogs.generatingFile">Generating File...</pb-i18n>
+                &gt;Generating File...
             </h2>
             <paper-dialog-scrollable>
                 <pb-i18n key="dialogs.downloadMessage"/>
             </paper-dialog-scrollable>
             <div class="buttons">
                 <paper-button dialog-confirm="dialog-confirm" autofocus="autofocus">
-                    <pb-i18n key="dialogs.close">Close</pb-i18n>
+                    Close
                 </paper-button>
             </div>
         </paper-dialog>
         <paper-dialog id="errorDialog">
             <h2>
-                    <pb-i18n key="dialogs.error">Error</pb-i18n>
+                    Error
                 </h2>
             <paper-dialog-scrollable/>
             <div class="buttons">
                 <paper-button dialog-confirm="dialog-confirm" autofocus="autofocus">
-                    <pb-i18n key="dialogs.close">Close</pb-i18n>
+                    Close
                 </paper-button>
             </div>
         </paper-dialog>

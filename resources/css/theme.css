@@ -2,6 +2,10 @@
 
 /* Due to a safari issue, relative paths to background images won't work as variables, so we list them here */
 
+pb-lang {
+    display: none;
+}
+
 .logo {
     background-image: url("../images/logo-JALit.png");
 }
@@ -190,7 +194,7 @@ app-drawer-layout:not([narrow]) [drawer-toggle] {
     background-color: #fff;
     color: #000;
     --pb-search-suggestions-color: #000;
-    --pb-search-suggestions-background: #000;
+    --pb-search-suggestions-background: #fff;
 }
 
 .menubar pb-media-query {

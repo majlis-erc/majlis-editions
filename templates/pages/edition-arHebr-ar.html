@@ -208,7 +208,7 @@ pb-grid-action {
                         </app-header>
                         <main class="content-body">
                         <!-- Adjust which pb-views are displayed by default and in which order by referencing their number in "panel" (starting from 0) -->
-                            <pb-grid id="grid" panels="[3,2,1,0,4]" subscribe="transcription" emit="transcription">
+                            <pb-grid id="grid" panels="[1,0]" subscribe="transcription" emit="transcription">
                                 <template>
                                     <!-- template used for adding a new column: user can choose between translation, facsimile and notes -->
                                     <pb-panel emit="transcription">
@@ -218,70 +218,20 @@ pb-grid-action {
                                         </pb-grid-action>
                                         <!-- Main text view (e.g., Judeo-Arabic original) -->
 <template title="Judeo-Arabic Text">
-    <pb-view src="document1" class=".transcription" xpath="//div[starts-with(@type,'main-')]" map="majlis-original" subscribe="transcription" emit="transcription">
+    <pb-view src="document1" class=".transcription" xpath="//div[starts-with(@type,'main-')]" map="majlis-original" subscribe="transcription" emit="transcription" style="direction:rtl;">
         <pb-param name="view" value="hebrew"/>
     </pb-view>
 </template>
 
 <!-- Arabic transliteration -->
 <template title="Arabic Text">
-    <pb-view src="document1" map="majlis-parallel" xpath="//div[@type='transliteration-ar']" subscribe="transcription" emit="transcription">
+    <pb-view src="document1" map="majlis-parallel" xpath="//div[@type='transliteration-ar']" subscribe="transcription" emit="transcription" style="direction:rtl;">
         <pb-param name="view" value="arabic"/>
         <pb-param name="target-prefix" value="ar"/>
     </pb-view>
 </template>
-
-<!-- Hebrew Translation -->
-<template title="Hebrew Translation">
-    <pb-view src="document1" map="majlis-parallel" xpath="//div[@type='translation-he']" subscribe="transcription">
-        <pb-param name="view" value="hebrew"/>
-        <pb-param name="target-prefix" value="he"/>
-    </pb-view>
-</template>
-
-<!-- French Translation -->
-<template title="French Translation">
-    <pb-view src="document1" map="majlis-parallel" xpath="//div[@type='translation-fr']" subscribe="transcription">
-        <pb-param name="target-prefix" value="fr"/>
-    </pb-view>
-</template>
-                                        <template title="Facsimile">
-                                            <pb-facsimile subscribe="transcription" type="image" base-uri="resources/scans/" default-zoom-level="0" show-navigation-control="show-navigation-control" mode="page">
-                                            </pb-facsimile>
-                                            <!--<div class="facscaption">Images provided by <a href="https://www.nli.org.il/en/discover/manuscripts/hebrew-manuscripts">Ktiv</a>
-                                            </div>-->
-                                        </template>
-                                        <template title="Notes">
-                                            <pb-view src="document1" map="majlis-parallel" xpath="//div[@type='translation-fr']" subscribe="transcription">
-                                                <pb-param name="view" value="notes"/>
-                                                <pb-param name="source-prefix" value="arHebr"/>
-        <pb-param name="target-prefix" value="fr"/>
-                                            </pb-view>
-                                        </template>
-                                        <template title="Metadata">
-                                            <pb-view src="document1" xpath="//teiHeader" view="single" class="metadata" subscribe="transcription" emit="transcription">
-                                            <pb-param name="view" value="metadata"/>
-                                            </pb-view>
-                                        </template>
                                     </pb-panel>
                                 </template>
-                                <!-- Should we have fixed windows for Judeo-Arabic text and facsimile? -->
-                                <!--<pb-view src="document1" class=".transcription" xpath="//div[@type='original-ar-Hebr']" subscribe="transcription" emit="transcription">
-                                                <pb-param name="view" value="hebrew"/>
-                                        </pb-view>
-                                <pb-facsimile subscribe="transcription" type="image" base-uri="{$app-root}" default-zoom-level="0" show-navigation-control="show-navigation-control" mode="page">
-                                            </pb-facsimile>
-                                            <div class="facscaption">Images provided by <a href="https://www.nli.org.il/en/discover/manuscripts/hebrew-manuscripts">Ktiv</a>
-                                            </div>-->
-                                <!-- For the transcription, users can choose between diplomatic and normalized view -->
-                                <!--  <pb-panel emit="transcription">
-                                        <template title="Judeo-Arabic Text + Line Endings">
-                                            <pb-view src="document1" class=".transcription" xpath="//div[@type='original-ar-Hebr']" subscribe="transcription" emit="transcription">
-                                                <pb-param name="view" value="hebrew"/>
-                                        </pb-view>
-                                        </template>
-                                        
-                        </pb-panel>-->
                             </pb-grid>
                         </main>
                     </app-header-layout>
