@@ -37,4 +37,4 @@ This makes it better suited to text–translation–image work where the manuscr
 
 ## License
 
-[MIT](LICENSE) — TEI Publisher itself is licensed under LGPL.
+[GPL 3.0](http://www.gnu.org/licenses/gpl-3.0.html).
