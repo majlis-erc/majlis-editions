@@ -19,3 +19,20 @@ jobs:
           java-version: ${{ matrix.jdk }}
       - name: Build, Test, and Package
         run: mvn clean package
+  integration-tests:
+    name: Run Integration Tests
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        jdk: [11,25]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'liberica'
+          java-version: ${{ matrix.jdk }}
+      - name: Build, package and Run Cypress tests
+        run: mvn clean verify -P docker,ci

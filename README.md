@@ -66,3 +66,25 @@ The XAR file will be at `target/majlis-editions-0.1.0-SNAPSHOT.xar`.
 2. Either build from source (see above) or download the XAR file from https://github.com/majlis-erc/majlis-editions/releases
 3. Upload the XAR file and install it via the Dashboard's Package Manager.
 
+## Docker
+
+A Docker image is provided that bundles Elemental together with the MAJLIS Editions application.
+
+### Build the Docker Image
+
+Use the `docker` Maven profile to produce the image locally:
+
+```shell
+mvn package -P docker
+```
+
+### Run the Container Locally
+
+```shell
+docker run --rm \
+  --name majlis-editions-test \
+  -p 8080:8080 \
+  -p 8443:8443 \
+  majlis-erc/majlis-editions:latest
+```
+

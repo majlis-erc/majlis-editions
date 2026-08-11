@@ -57,6 +57,19 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+        <!-- Elemental / Docker -->
+        <elemental.version>6.11.0</elemental.version>
+        <elemental.exist-db.expath.pkg.compatible.version>6.4.0</elemental.exist-db.expath.pkg.compatible.version>
+        <public.xar.repo.uri>https://exist-db.org/exist/apps/public-repo</public.xar.repo.uri>
+
+        <!-- Dependency XAR versions (must match xar-assembly.xml declarations) -->
+        <tei-publisher-lib.xar.version>4.0.4</tei-publisher-lib.xar.version>
+        <roaster.xar.version>1.12.1</roaster.xar.version>
+
+        <!-- Docker build output paths -->
+        <docker.dir>target/docker</docker.dir>
+        <docker.context.dir>target/docker-context</docker.context.dir>
+
         <!-- EXPath -->
         <package-title>${project.name}</package-title>
         <package-name>https://jalit.org/majlis-editions</package-name>
@@ -91,6 +104,18 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>3.5.0</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>io.fabric8</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>0.48.1</version>
+                </plugin>
+
+                <plugin>
+                    <groupId>com.github.eirslett</groupId>
+                    <artifactId>frontend-maven-plugin</artifactId>
+                    <version>1.15.4</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -139,7 +164,6 @@
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.15.4</version>
                 <configuration>
                     <workingDirectory>${project.basedir}</workingDirectory>
                     <installDirectory>${project.basedir}/.mvn-node</installDirectory>
@@ -161,7 +185,7 @@
                         </goals>
                         <phase>generate-resources</phase>
                         <configuration>
-                            <arguments>install</arguments>
+                            <arguments>ci</arguments>
                         </configuration>
                     </execution>
                 </executions>
@@ -313,8 +337,227 @@
                 <artifactId>maven-clean-plugin</artifactId>
                 <version>3.5.0</version>
             </plugin>
-
         </plugins>
     </build>
+
+    <profiles>
+        <profile>
+            <!-- NOTE(AR) Profile to build a Docker Image -->
+            <id>docker</id>
+            <properties>
+                <!-- directory that contains the filtered Dockerfile -->
+                <docker.dir>${project.build.directory}/docker</docker.dir>
+                <!-- directory for placing files that will be added to the Docker Image -->
+                <docker.context.dir>${project.build.directory}/docker-context</docker.context.dir>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>process-dockerfile</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/main/docker</directory>
+                                            <filtering>true</filtering>
+                                        </resource>
+                                    </resources>
+                                    <outputDirectory>${docker.dir}</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.evolvedbinary.maven.plugins</groupId>
+                        <artifactId>expath-package-repository-plugin</artifactId>
+                        <version>1.5.0</version>
+                        <executions>
+                            <execution>
+                                <id>fetch-xars</id>
+                                <phase>generate-resources</phase>
+                                <goals>
+                                    <goal>resolve</goal>
+                                </goals>
+                                <configuration>
+                                    <repoUri>${public.xar.repo.uri}</repoUri>
+                                    <outputDirectory>${docker.context.dir}</outputDirectory>
+                                    <elementalVersion>${elemental.version}</elementalVersion>
+                                    <elementalExistDbPkgCompatibleVersion>${elemental.exist-db.expath.pkg.compatible.version}</elementalExistDbPkgCompatibleVersion>
+                                    <packages>
+                                        <package>
+                                            <abbrev>tei-publisher-lib</abbrev>
+                                            <version>${tei-publisher-lib.xar.version}</version>
+                                        </package>
+                                        <package>
+                                            <abbrev>roaster</abbrev>
+                                            <version>${roaster.xar.version}</version>
+                                        </package>
+                                    </packages>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.evolvedbinary.maven.mfrey</groupId>
+                        <artifactId>copy-maven-plugin</artifactId>
+                        <version>2.1.0</version>
+                        <configuration>
+                            <showfiles>true</showfiles>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>copy-xar-to-docker-context</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                <configuration>
+                                    <resources>
+                                        <resource>
+                                            <workOnFullPath>true</workOnFullPath>
+                                            <directory>${project.build.directory}</directory>
+                                            <includes>*.xar</includes>
+                                            <paths>
+                                                <path>
+                                                    <from>${project.build.directory}</from>
+                                                    <to>${docker.context.dir}</to>
+                                                </path>
+                                            </paths>
+                                            <replaceExisting>true</replaceExisting>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <configuration>
+                            <verbose>true</verbose>
+                            <images>
+                                <image>
+                                    <name>majlis-erc/majlis-editions:%v</name>
+                                    <alias>majlis-editions</alias>
+                                    <registry>ghcr.io</registry>
+                                    <build>
+                                        <tags>
+                                            <tag>latest</tag>
+                                        </tags>
+                                        <dockerFile>${docker.dir}/Dockerfile</dockerFile>
+                                        <contextDir>${docker.context.dir}</contextDir>
+                                        <buildx>
+                                            <platforms>
+                                                <platform>linux/amd64</platform>
+                                                <platform>linux/arm64</platform>
+                                            </platforms>
+                                        </buildx>
+                                    </build>
+                                </image>
+                            </images>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>build-image</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>build</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>push-image</id>
+                                <phase>deploy</phase>
+                                <goals>
+                                    <goal>push</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>ci</id>
+            <build>
+                <plugins>
+
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <configuration>
+                            <images>
+                                <image>
+                                    <name>majlis-erc/majlis-editions:%v</name>
+                                    <registry>ghcr.io</registry>
+                                    <alias>majlis-editions-ci</alias>
+                                    <run>
+                                        <containerNamePattern>majlis-editions-ci</containerNamePattern>
+                                        <ports>
+                                            <port>8080:8080</port>
+                                        </ports>
+                                        <wait>
+                                            <http>
+                                                <url>http://localhost:8080/exist/apps/majlis-editions</url>
+                                                <method>GET</method>
+                                                <status>200..399</status>
+                                            </http>
+                                            <time>120000</time>
+                                        </wait>
+                                    </run>
+                                </image>
+                            </images>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>ci-docker-start</id>
+                                <phase>pre-integration-test</phase>
+                                <goals>
+                                    <goal>start</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>ci-docker-stop</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                                <configuration>
+                                    <allContainers>true</allContainers>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>com.github.eirslett</groupId>
+                        <artifactId>frontend-maven-plugin</artifactId>
+                        <configuration>
+                            <workingDirectory>${project.basedir}</workingDirectory>
+                            <installDirectory>${project.basedir}/.mvn-node</installDirectory>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>cypress-run</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>npm</goal>
+                                </goals>
+                                <configuration>
+                                    <arguments>run cy:run</arguments>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 
 </project>
