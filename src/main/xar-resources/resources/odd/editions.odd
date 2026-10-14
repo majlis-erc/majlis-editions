@@ -4,7 +4,8 @@
                 <publisher>eXistSolutions GmbH</publisher>
                 <availability>
                     <licence target="https://www.gnu.org/licenses/gpl-3.0.en.html">Distributed under GNU General Public License</licence>
-                    <p>Copyright 2017 <ref target="http://existsolutions.com">eXistSolutions GmbH</ref></p>
+                    <p>Copyright 2017 <ref target="http://existsolutions.com">eXistSolutions GmbH</ref>
+                    </p>
                     <p>This program is free software: you can redistribute it and/or modify
                         it under the terms of the GNU General Public License as published by
                         the Free Software Foundation, either version 3 of the License, or
@@ -35,7 +36,8 @@
             <outputRendition xml:space="preserve">
             background-color: #00c353;
             </outputRendition>
-        </model></elementSpec><elementSpec ident="div" mode="change"><model predicate="@n='2'" behaviour="webcomponent">
+        </model></elementSpec>
+                <elementSpec ident="div" mode="change"><model predicate="@n='2'" behaviour="webcomponent">
             <param name="key" value="translate(head, '.', '')"/>
             <param name="name" value="'pb-highlight'"/>
             <param name="content" value="."/>
@@ -58,7 +60,8 @@
             <outputRendition xml:space="preserve">
             
             </outputRendition>
-        </model></elementSpec><elementSpec ident="title" mode="change"><model predicate="$parameters?header='edition'" behaviour="inline"/><model predicate="$parameters?header='short'" behaviour="heading"/><modelSequence predicate="parent::titleStmt/parent::fileDesc">
+        </model></elementSpec>
+                <elementSpec ident="title" mode="change"><model predicate="$parameters?header='edition'" behaviour="inline"/><model predicate="$parameters?header='short'" behaviour="heading"/><modelSequence predicate="parent::titleStmt/parent::fileDesc">
             <model predicate="preceding-sibling::title" behaviour="text">
                 <param name="content" value="' — '"/>
             </model>
@@ -94,7 +97,8 @@
             <outputRendition xml:space="preserve">
             font-style: italic;
             </outputRendition>
-        </model></elementSpec><elementSpec ident="titleStmt" mode="change"><model predicate="$parameters?header='citation'" behaviour="inline">
+        </model></elementSpec>
+                <elementSpec ident="titleStmt" mode="change"><model predicate="$parameters?header='citation'" behaviour="inline">
             <param name="title" value="concat(title[1], ' ', concat('by ', author))"/>
             <param name="date" value="format-date(current-date(),&#34;[D] [Mn] [Y]&#34;, &#34;en&#34;, (), ())"/>
             <param name="uri" value="$parameters?doc"/>
@@ -127,9 +131,12 @@
                 <param name="content" value="author"/>
                 <param name="level" value="2"/>
             </model>
-        </modelSequence><model output="web" behaviour="block"/></elementSpec><elementSpec ident="listWit" mode="add"><model behaviour="list"/></elementSpec><elementSpec ident="note" mode="change"><model predicate="$parameters?view='notes'" behaviour="listItem">
+        </modelSequence><model output="web" behaviour="block"/></elementSpec>
+                <elementSpec ident="listWit" mode="add"><model behaviour="inline"/></elementSpec>
+                <elementSpec ident="note" mode="change"><model predicate="$parameters?view='notes'" behaviour="listItem">
             <param name="n" value="@n"/>
             <outputRendition xml:space="preserve">
+            
             
             
             
@@ -160,13 +167,31 @@ margin: 0 .25em;
             
             
             
+            
             </outputRendition>
         </model><model behaviour="note">
             <param name="place" value="@place"/>
             <param name="label" value="@n"/>
-        </model></elementSpec><elementSpec ident="teiHeader" mode="change"><model predicate="$parameters?view='metadata'" behaviour="block">
-            <param name="content" value=".//sourceDesc/listWit"/>
-        </model><model output="latex" behaviour="metadata"/><model output="fo" behaviour="omit"/><model output="web" predicate="$parameters?header='edition'" behaviour="block"/><model output="web" predicate="$parameters?header='short'" behaviour="block"/><model output="web" behaviour="metadata"/></elementSpec><elementSpec ident="pb" mode="change"><model predicate="@facs" behaviour="webcomponent">
+        </model></elementSpec>
+                <elementSpec ident="teiHeader" mode="change"><modelSequence predicate="$parameters?view='metadata'">
+            <model behaviour="heading">
+                <param name="level" value="3"/>
+                <param name="content" value="'Team'"/>
+            </model>
+            <model behaviour="block">
+                <desc>Editors</desc>
+                <param name="content" value="/fileDesc/titleStmt/editor"/>
+            </model>
+            <model predicate=".//sourceDesc/listWit/witness" behaviour="heading">
+                <param name="level" value="3"/>
+                <param name="content" value="'Witnesses'"/>
+            </model>
+            <model behaviour="block">
+                <desc>Witnesses</desc>
+                <param name="content" value=".//sourceDesc/listWit"/>
+            </model>
+        </modelSequence><model predicate="$parameters?view='max'" behaviour="block"/><model output="latex" behaviour="metadata"/><model output="fo" behaviour="omit"/><model output="web" predicate="$parameters?header='edition'" behaviour="block"/><model output="web" predicate="$parameters?header='short'" behaviour="block"/><model output="web" behaviour="metadata"/></elementSpec>
+                <elementSpec ident="pb" mode="change"><model predicate="@facs" behaviour="webcomponent">
             <desc>Use the url from the facs attribute to link with IIIF image - resources/scans/</desc>
             <param name="name" value="'pb-facs-link'"/>
             <param name="facs" value="let $surfaceId := substring-after(@facs, '#') let $surface := doc(base-uri($parameters?root))//surface[@xml:id = $surfaceId] let $url := $surface/graphic/@url return concat('', $url)"/>
@@ -174,11 +199,13 @@ margin: 0 .25em;
             <param name="emit" value="'transcription'"/>
             <param name="content" value="@f || '' || @n"/>
             <outputRendition xml:space="preserve">
+            
             font-size: .85em;
 background-color: #C0C0C0;
 border-left: 1px solid black;
 border-right: 1px solid black;
 padding: 0 1em;
+            
             </outputRendition>
         </model><model predicate="starts-with(@facs, 'iiif:')" behaviour="webcomponent">
             <desc>If facs attribute starts with iiif prefix, use the trailing part as a link to the IIIF image</desc>
@@ -198,7 +225,10 @@ padding: 0 1em;
             <outputRendition xml:space="preserve" scope="after">
             content: '|';
             </outputRendition>
-        </model></elementSpec><elementSpec ident="wit" mode="add"/><elementSpec ident="witness" mode="add"><model behaviour="listItem"/></elementSpec><elementSpec ident="fileDesc" mode="change"><modelSequence predicate="$parameters?header='short' or $parameters?header='edition'">
+        </model></elementSpec>
+                <elementSpec ident="wit" mode="add"/>
+                <elementSpec ident="witness" mode="add"><model behaviour="listItem"/></elementSpec>
+                <elementSpec ident="fileDesc" mode="change"><modelSequence predicate="$parameters?header='short' or $parameters?header='edition'">
             <model behaviour="block" cssClass="header-short">
                 <param name="content" value="titleStmt"/>
             </model>
@@ -214,12 +244,15 @@ padding: 0 1em;
             </model>
         </modelSequence><model behaviour="title">
             <param name="content" value="titleStmt"/>
-        </model></elementSpec><elementSpec ident="ab" mode="change"><model behaviour="omit"/></elementSpec><elementSpec ident="lb" mode="change"><model predicate="$parameters?view='arab'" behaviour="break">
+        </model></elementSpec>
+                <elementSpec ident="ab" mode="change"><model behaviour="omit"/></elementSpec>
+                <elementSpec ident="lb" mode="change"><model predicate="$parameters?view='arab'" behaviour="break">
             <param name="type" value="line"/>
         </model><model behaviour="break" useSourceRendition="true">
             <param name="type" value="'line'"/>
             <param name="label" value="@n"/>
-        </model></elementSpec><elementSpec ident="p" mode="change"><model predicate="$parameters?view='diplo'" behaviour="inline" cssClass="diplomatic">
+        </model></elementSpec>
+                <elementSpec ident="p" mode="change"><model predicate="$parameters?view='diplo'" behaviour="inline" cssClass="diplomatic">
             <outputRendition xml:space="preserve">
             color: red;
             </outputRendition>
@@ -233,7 +266,8 @@ padding: 0 1em;
             <outputRendition xml:space="preserve">
             text-align: justify;
             </outputRendition>
-        </model></elementSpec><elementSpec ident="head" mode="change"><model predicate="$parameters?header='short'" behaviour="inline">
+        </model></elementSpec>
+                <elementSpec ident="head" mode="change"><model predicate="$parameters?header='short'" behaviour="inline">
             <param name="content" value="replace(string-join(.//text()[not(parent::ref)]), '^(.*?)[^\w]*$', '$1')"/>
         </model><model predicate="parent::figure" behaviour="block">
             <outputRendition xml:space="preserve">
@@ -256,6 +290,20 @@ padding: 0 1em;
             <outputRendition xml:space="preserve">
             direction: rtl;
             </outputRendition>
-        </model><model behaviour="block"/></elementSpec><elementSpec ident="foreign" mode="change"><model predicate="xml:lang='ar'" behaviour="inline" cssClass="arabic"/><model predicate="xml:lang='he'" behaviour="inline" cssClass="hebrew"/><model behaviour="inline"/></elementSpec></schemaSpec>
+        </model><model behaviour="block"/></elementSpec>
+                <elementSpec ident="foreign" mode="change"><model predicate="xml:lang='ar'" behaviour="inline" cssClass="arabic"/><model predicate="xml:lang='he'" behaviour="inline" cssClass="hebrew"/><model behaviour="inline"/></elementSpec>
+            <elementSpec ident="editor" mode="add"><model predicate="@role='editor'" behaviour="listItem">
+            <param name="content" value="."/>
+            <pb:template xmlns="" xml:space="preserve">Editor:  [[content]]</pb:template>
+        </model><model predicate="@role='encoding'" behaviour="listItem">
+            <param name="content" value="."/>
+            <pb:template xmlns="" xml:space="preserve">Encoding: [[content]]</pb:template>
+        </model><model predicate="@role='collaborator'" behaviour="listItem">
+            <param name="content" value="."/>
+            <pb:template xmlns="" xml:space="preserve">Collaborator: [[content]]</pb:template>
+        </model><model predicate="@role='general-editor'" behaviour="listItem">
+            <param name="content" value="."/>
+            <pb:template xmlns="" xml:space="preserve">General editor: [[content]]</pb:template>
+        </model></elementSpec></schemaSpec>
         </body>
     </text></TEI>

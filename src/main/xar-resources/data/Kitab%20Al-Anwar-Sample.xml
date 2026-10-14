@@ -6,7 +6,12 @@
                 <title level="m">MAJLIS – The Transformation of Jewish Literature in Arabic in the
                     Islamicate World.</title>
                 <author>Yaʿqūb b. Isḥāq al-Qirqisānī</author>
-                <editor>Gregor Schwarb</editor>
+                <editor role="general-editor">Ronny Vollandt</editor>
+                <editor role="editor">Gregor Schwarb</editor>
+                <editor role="collaborator">Nabih Bashir</editor>
+                <editor role="collaborator">Eliyahu Freedman</editor>
+                <editor role="collaborator">Maxim Roozen</editor>
+                <editor role="encoding">Maximilian de Molière</editor>
             </titleStmt>
             <publicationStmt>
                 <p>MAJLIS – The Transformation of Jewish Literature in Arabic in the Islamicate
@@ -15,6 +20,44 @@
             <sourceDesc>
                 <listWit>
                     <witness xml:id="MS1">Nemoy Edition</witness>
+                    <witness xml:id="RNL_Yevr-Arab_I_832.01-02">RNL Yevr.-Arab. I 832.01-02</witness>
+<witness xml:id="BL_Or_2578.1-3">BL, Or. 2578.1-3</witness>
+<witness xml:id="BL_Or_2524.1-4">BL, Or. 2524.1-4</witness>
+<witness xml:id="BL_Or_2579">BL, Or. 2579</witness>
+<witness xml:id="BL_Or_2580">BL, Or. 2580</witness>
+<witness xml:id="BL_Or_2582.07_13">BL, Or. 2582.07/13</witness>
+<witness xml:id="RNL_Yevr-Arab_I_4523">RNL Yevr.-Arab. I 4523</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1335">RNL Yevr.-Arab. I 1335</witness>
+<witness xml:id="RNL_Yevr-Arab_I_702">RNL Yevr.-Arab. I 702</witness>
+<witness xml:id="RNL_Yevr-Arab_I_4462">RNL Yevr.-Arab. I 4462</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1343">RNL Yevr.-Arab. I 1343</witness>
+<witness xml:id="RNL_Yevr-Arab_I_891">RNL Yevr.-Arab. I 891</witness>
+<witness xml:id="RNL_Yevr-Arab_I_4526">RNL Yevr.-Arab. I 4526</witness>
+<witness xml:id="RNL_Yevr-Arab_I_884">RNL Yevr.-Arab. I 884</witness>
+<witness xml:id="RNL_Yevr-Arab_I_4519">RNL Yevr.-Arab. I 4519</witness>
+<witness xml:id="RNL_Yevr-Arab_I_489">RNL Yevr.-Arab. I 489</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1686">RNL Yevr.-Arab. I 1686</witness>
+<witness xml:id="RNL_Yevr-Arab_I_871">RNL Yevr.-Arab. I 871</witness>
+<witness xml:id="RNL_Yevr-Arab_I_873">RNL Yevr.-Arab. I 873</witness>
+<witness xml:id="RNL_Yevr-Arab_I_923">RNL Yevr.-Arab. I 923</witness>
+<witness xml:id="RNL_Yevr-Arab_I_866">RNL Yevr.-Arab. I 866</witness>
+<witness xml:id="RNL_Yevr-Arab_I_842">RNL Yevr.-Arab. I 842</witness>
+<witness xml:id="RNL_Yevr-Arab_I_845">RNL Yevr.-Arab. I 845</witness>
+<witness xml:id="RNL_Yevr-Arab_I_833">RNL Yevr.-Arab. I 833</witness>
+<witness xml:id="RNL_Yevr-Arab_I_4520">RNL Yevr.-Arab. I 4520</witness>
+<witness xml:id="RNL_Yevr-Arab_I_4522">RNL Yevr.-Arab. I 4522</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1092">RNL Yevr.-Arab. I 1092</witness>
+<witness xml:id="RNL_Yevr-Arab_I_905">RNL Yevr.-Arab. I 905</witness>
+<witness xml:id="RNL_Yevr-Arab_I_848">RNL Yevr.-Arab. I 848</witness>
+<witness xml:id="RNL_Yevr-Arab_I_4524">RNL Yevr.-Arab. I 4524</witness>
+<witness xml:id="RNL_Yevr-Arab_I_4513">RNL Yevr.-Arab. I 4513</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1687">RNL Yevr.-Arab. I 1687</witness>
+<witness xml:id="RNL_Yevr-Arab_I_321">RNL Yevr.-Arab. I 321</witness>
+<witness xml:id="RNL_Yevr-Arab_I_893">RNL Yevr.-Arab. I 893</witness>
+<witness xml:id="RNL_Yevr-Arab_I_4584">RNL Yevr.-Arab. I 4584</witness>
+<witness xml:id="RNL_Yevr-Arab_I_907">RNL Yevr.-Arab. I 907</witness>
+<witness xml:id="RNL_Yevr-Arab_I_4525">RNL Yevr.-Arab. I 4525</witness>
+<witness xml:id="RNL_Yevr-Arab_I_906">RNL Yevr.-Arab. I 906</witness>
                 </listWit>
             </sourceDesc>
         </fileDesc>

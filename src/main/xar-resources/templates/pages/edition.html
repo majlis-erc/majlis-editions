@@ -208,7 +208,7 @@ pb-grid-action {
                         </app-header>
                         <main class="content-body">
                         <!-- Adjust which pb-views are displayed by default and in which order by referencing their number in "panel" (starting from 0) -->
-                            <pb-grid id="grid" panels="[3,2,1,0,4]" subscribe="transcription" emit="transcription">
+                            <pb-grid id="grid" panels="[5,3,1,0,4]" subscribe="transcription" emit="transcription">
                                 <template>
                                     <!-- template used for adding a new column: user can choose between translation, facsimile and notes -->
                                     <pb-panel emit="transcription">
@@ -251,13 +251,13 @@ pb-grid-action {
                                             <!--<div class="facscaption">Images provided by <a href="https://www.nli.org.il/en/discover/manuscripts/hebrew-manuscripts">Ktiv</a>
                                             </div>-->
                                         </template>
-                                        <template title="Notes">
+                                        <!--<template title="Notes">
                                             <pb-view src="document1" map="majlis-parallel" xpath="//div[@type='translation-fr']" subscribe="transcription">
                                                 <pb-param name="view" value="notes"/>
                                                 <pb-param name="source-prefix" value="arHebr"/>
         <pb-param name="target-prefix" value="fr"/>
                                             </pb-view>
-                                        </template>
+                                        </template>-->
                                         <template title="Metadata">
                                             <pb-view src="document1" xpath="//teiHeader" view="single" class="metadata" subscribe="transcription" emit="transcription">
                                             <pb-param name="view" value="metadata"/>
