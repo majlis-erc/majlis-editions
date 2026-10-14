@@ -74,7 +74,7 @@ declare function oapi:recompile($request as map(*)) {
                     $module,
                     $outputPrefix,
                     $oddConfig,
-                    $module = "web")
+                    $module = "web" and $source != "editions.odd")
                 let $file := $output?module
                 return
                     if ($output?error) then
@@ -244,7 +244,7 @@ declare %private function oapi:compile($odd) {
             $module,
             $config:output,
             $config:module-config,
-            $module = "web"
+            $module = "web" and $odd != "editions"
         )
     return
         ()
@@ -419,6 +419,33 @@ declare function oapi:lint($request as map(*)) {
             }
 };
 
+(:~
+ : Deep-copy nodes by value. Elemental (unlike eXist 6.x) streams the following
+ : siblings when an in-memory *reference* node (a node taken over from a stored
+ : document) is copied into a constructor, producing documents with several root
+ : elements. Rebuilding nodes by value avoids passing reference nodes on.
+ :)
+declare function oapi:copy($nodes as node()*) {
+    for $node in $nodes
+    return
+        typeswitch($node)
+            case document-node() return
+                document { oapi:copy($node/node()) }
+            case element() return
+                element { node-name($node) } {
+                    $node/@*,
+                    oapi:copy($node/node())
+                }
+            case text() return
+                text { $node }
+            case comment() return
+                comment { string($node) }
+            case processing-instruction() return
+                processing-instruction { local-name($node) } { string($node) }
+            default return
+                $node
+};
+
 declare function oapi:update($nodes as node()*, $data as document-node(), $orig as document-node()) {
     for $node in $nodes
     return
@@ -444,14 +471,14 @@ declare function oapi:update($nodes as node()*, $data as document-node(), $orig 
             case element(titleStmt) return
                 element { node-name($node) } {
                     $node/@*,
-                    $data/schemaSpec/title[text()],
-                    $node/* except $node/title
+                    oapi:copy($data/schemaSpec/title[text()]),
+                    oapi:copy($node/* except $node/title)
                 }
             case element(tagsDecl) return
                 element { node-name($node) } {
                     $node/@*,
-                    $node/* except $node/rendition[@source],
-                    $data/schemaSpec/rendition[@source]
+                    oapi:copy($node/* except $node/rendition[@source]),
+                    oapi:copy($data/schemaSpec/rendition[@source])
                 }
             case element(schemaSpec) return
                 element { node-name($node) } {
@@ -466,7 +493,7 @@ declare function oapi:update($nodes as node()*, $data as document-node(), $orig 
                     for $spec in $data//elementSpec
                     where empty($orig//elementSpec[@ident = $spec/@ident])
                     return
-                        $spec
+                        oapi:copy($spec)
                 }
             case element(elementSpec) return
                 let $newSpec := $data//elementSpec[@ident=$node/@ident]
@@ -474,8 +501,8 @@ declare function oapi:update($nodes as node()*, $data as document-node(), $orig 
                     element { node-name($node) } {
                         $node/@ident,
                         $node/@mode,
-                        $node/* except ($node/model, $node/modelGrp, $node/modelSequence),
-                        $newSpec/*
+                        oapi:copy($node/* except ($node/model, $node/modelGrp, $node/modelSequence)),
+                        oapi:copy($newSpec/*)
                     }
             case element() return
                 element { node-name($node) } {
@@ -483,7 +510,7 @@ declare function oapi:update($nodes as node()*, $data as document-node(), $orig 
                     oapi:update($node/node(), $data, $orig)
                 }
             default return
-                $node
+                oapi:copy($node)
 };
 
 declare %private function oapi:normalize-ns($nodes as node()*) {
@@ -508,7 +535,7 @@ declare %private function oapi:normalize-ns($nodes as node()*) {
                 }
             case element(pb:template) return
                 <pb:template xmlns="" xml:space="preserve">
-                { $node/node() }
+                { oapi:copy($node/node()) }
                 </pb:template>
             case element() return
                 element { QName(namespace-uri($node), local-name($node)) } {
@@ -516,7 +543,7 @@ declare %private function oapi:normalize-ns($nodes as node()*) {
                     oapi:normalize-ns($node/node())
                 }
             default return
-                $node
+                oapi:copy($node)
 };
 
 declare function oapi:add-tags-decl($nodes as node()*) {
@@ -535,30 +562,30 @@ declare function oapi:add-tags-decl($nodes as node()*) {
                         namespace { $prefix } { $namespace },
                     $node/@*,
                     oapi:add-tags-decl($node/teiHeader),
-                    $node/* except $node/teiHeader
+                    oapi:copy($node/* except $node/teiHeader)
                 }
             case element(teiHeader) return
                 element { node-name($node) } {
                     $node/@*,
-                    $node/fileDesc,
+                    oapi:copy($node/fileDesc),
                     if ($node/encodingDesc) then
                         oapi:add-tags-decl($node/encodingDesc)
                     else
                         <encodingDesc>
                             <tagsDecl></tagsDecl>
                         </encodingDesc>,
-                    $node/* except ($node/fileDesc, $node/encodingDesc)
+                    oapi:copy($node/* except ($node/fileDesc, $node/encodingDesc))
                 }
             case element(encodingDesc) return
                 element { node-name($node) } {
                     $node/@*,
                     if ($node/tagsDecl) then
-                        $node/tagsDecl
+                        oapi:copy($node/tagsDecl)
                     else
                         <tagsDecl>
                         </tagsDecl>,
-                    $node/* except $node/tagsDecl
+                    oapi:copy($node/* except $node/tagsDecl)
                 }
             default return
-                $node
+                oapi:copy($node)
 };

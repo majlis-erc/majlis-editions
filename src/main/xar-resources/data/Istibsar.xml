@@ -6,27 +6,67 @@
                 <title level="m">MAJLIS – The Transformation of Jewish Literature in Arabic in the
                     Islamicate World.</title>
                 <author>Yosef ha-Roʾeh</author>
-                <editor>Gregor Schwarb</editor>
-                <editor>Maximilian de Molière</editor>
+                <editor role="general-editor">Ronny Vollandt</editor>
+                <editor role="editor">Gregor Schwarb</editor>
+                <editor role="collaborator">Aïcha Belabid</editor>
+                <editor role="encoding">Maximilian de Molière</editor>
             </titleStmt>
             <publicationStmt>
                 <p>MAJLIS – The Transformation of Jewish Literature in Arabic in the Islamicate
                     World.</p>
             </publicationStmt>
             <sourceDesc>
-                <!-- ============================================================= -->
-                <!-- LIST OF WITNESSES                                             -->
-                <!-- Define all manuscripts and editions you'll reference          -->
-                <!-- Each witness needs a unique xml:id for citation               -->
-                <!-- ============================================================= -->
                 <listWit>
-                    <!-- Example manuscript witness -->
-                    <witness xml:id="MS1">ms. [Library], [Call Number], [Description]</witness>
-                    <!-- Example printed edition witness -->
-                    <witness xml:id="ED1">ed. [Editor Name], [Publication Info]</witness>
-                    <!-- Add more witnesses as needed -->
-                    <!-- <witness xml:id="MS2">ms. [Library], [Call Number]</witness> -->
-                    <!-- <witness xml:id="ED2">ed. [Editor Name]</witness> -->
+<witness xml:id="RNL_Yevr-Arab_I_0318">RNL Yevr.-Arab. I 0318</witness>
+<witness xml:id="RNL_Yevr-Arab_I_0513">RNL Yevr.-Arab. I 0513</witness>
+<witness xml:id="RNL_Yevr-Arab_I_0680">RNL Yevr.-Arab. I 0680</witness>
+<witness xml:id="RNL_Yevr-Arab_I_0794">RNL Yevr.-Arab. I 0794</witness>
+<witness xml:id="RNL_Yevr-Arab_I_0881">RNL Yevr.-Arab. I 0881</witness>
+<witness xml:id="RNL_Yevr-Arab_I_0883">RNL Yevr.-Arab. I 0883</witness>
+<witness xml:id="RNL_Yevr-Arab_I_0970">RNL Yevr.-Arab. I 0970</witness>
+<witness xml:id="RNL_Yevr-Arab_I_0990">RNL Yevr.-Arab. I 0990</witness>
+<witness xml:id="RNL_Yevr-Arab_I_0991">RNL Yevr.-Arab. I 0991</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1000">RNL Yevr.-Arab. I 1000</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1004">RNL Yevr.-Arab. I 1004</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1038">RNL Yevr.-Arab. I 1038</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1075">RNL Yevr.-Arab. I 1075</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1136">RNL Yevr.-Arab. I 1136</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1170">RNL Yevr.-Arab. I 1170</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1171">RNL Yevr.-Arab. I 1171</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1293">RNL Yevr.-Arab. I 1293</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1302">RNL Yevr.-Arab. I 1302</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1608">RNL Yevr.-Arab. I 1608</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1694">RNL Yevr.-Arab. I 1694</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1793">RNL Yevr.-Arab. I 1793</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1794">RNL Yevr.-Arab. I 1794</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1803">RNL Yevr.-Arab. I 1803</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1811">RNL Yevr.-Arab. I 1811</witness>
+<witness xml:id="RNL_Yevr-Arab_I_3096">RNL Yevr.-Arab. I 3096</witness>
+<witness xml:id="RNL_Yevr-Arab_I_3303">RNL Yevr.-Arab. I 3303</witness>
+<witness xml:id="RNL_Yevr-Arab_I_3322">RNL Yevr.-Arab. I 3322</witness>
+<witness xml:id="RNL_Yevr-Arab_I_4047">RNL Yevr.-Arab. I 4047</witness>
+<witness xml:id="RNL_Yevr-Arab_I_4444">RNL Yevr.-Arab. I 4444</witness>
+<witness xml:id="RNL_Yevr-Arab_I_4528">RNL Yevr.-Arab. I 4528</witness>
+<witness xml:id="RNL_Yevr-Arab_I_4454">RNL Yevr.-Arab. I 4454</witness>
+<witness xml:id="RNL_Yevr-Arab_I_4638">RNL Yevr.-Arab. I 4638</witness>
+<witness xml:id="RNL_Yevr-Arab_II_0881">RNL Yevr.-Arab. II 0881</witness>
+<witness xml:id="RNL_Yevr-Arab_II_0927">RNL Yevr.-Arab. II 0927</witness>
+<witness xml:id="RNL_Yevr-Arab_II_0938">RNL Yevr.-Arab. II 0938</witness>
+<witness xml:id="RNL_Yevr-Arab_II_0948">RNL Yevr.-Arab. II 0948</witness>
+<witness xml:id="RNL_Yevr-Arab_II_0992">RNL Yevr.-Arab. II 0992</witness>
+<witness xml:id="RNL_Yevr-Arab_II_1029">RNL Yevr.-Arab. II 1029</witness>
+<witness xml:id="RNL_Yevr-Arab_II_1039">RNL Yevr.-Arab. II 1039</witness>
+<witness xml:id="RNL_Yevr-Arab_II_1058">RNL Yevr.-Arab. II 1058</witness>
+<witness xml:id="RNL_Yevr-Arab_II_1153">RNL Yevr.-Arab. II 1153</witness>
+<witness xml:id="RNL_Yevr-Arab_II_1162">RNL Yevr.-Arab. II 1162</witness>
+<witness xml:id="RNL_Yevr-Arab_II_1213">RNL Yevr.-Arab. II 1213</witness>
+<witness xml:id="RNL_Yevr-Arab_II_1230">RNL Yevr.-Arab. II 1230</witness>
+<witness xml:id="RNL_Yevr-Arab_II_2814">RNL Yevr.-Arab. II 2814</witness>
+<witness xml:id="RNL_Arab-Yevr_24">RNL Arab.-Yevr. 24</witness>
+<witness xml:id="RNL_Arab-Yevr_36">RNL Arab.-Yevr. 36</witness>
+<witness xml:id="RNL_Arab-Yevr_53">RNL Arab.-Yevr. 53</witness>
+<witness xml:id="RNL_Arab-Yevr_141">RNL Arab.-Yevr. 141</witness>
+<witness xml:id="RNL_Arab-Yevr_173">RNL Arab.-Yevr. 173</witness>
                 </listWit>
             </sourceDesc>
         </fileDesc>
@@ -1080,7 +1120,8 @@
                 <p>إذ قوله <note place="left"/>בן חדש وما جرى مجراه وجب أن تكون حقيقته كمال ما
                     يسمَّى من الزمان חודש فلا يجوز أن يكون له عشرون يوما ونحوها فيوصف بأنّه ابن شهر
                     كذا لا يجوز أن يوصف بأنَّه ابن ثمانية أيام إلَّا وقد مضى له ثمانية أيام كاملة</p>-->
-                </div></div>
+                </div>
+                    </div>
                 </div>
             </div>
         </body>

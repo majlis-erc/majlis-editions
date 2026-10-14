@@ -6,6 +6,7 @@
                 <title level="m">MAJLIS – The Transformation of Jewish Literature in Arabic in the
                     Islamicate World.</title>
                 <author>Yosef ha-Roʾeh</author>
+                <editor role="general-editor">Ronny Vollandt</editor>
                 <editor role="editor">Gregor Schwarb</editor>
                 <editor role="encoding">Maximilian de Molière</editor>
             </titleStmt>
@@ -15,13 +16,19 @@
             </publicationStmt>
             <sourceDesc>
                 <listWit>
-                    <witness xml:id="V">ed. Vajda </witness>
-                    <witness xml:id="AG">ed. Al-Gamil </witness>
-                    <witness xml:id="L1">ms. Leiden, UB, Or. 4779 = formerly Warner 41 (= MS
-                        Maagarim) </witness>
-                    <witness xml:id="P">ms. Paris, héb. 670</witness>
-                    <witness xml:id="RC">ms. SP, IOM, C 103</witness>
-                    <witness xml:id="BS">ed. Ben-Shammai</witness>
+                    <witness type="edition" xml:id="BS">ed. Ben-Shammai</witness>
+                    <witness type="edition" xml:id="V">ed. Vajda </witness>
+                    <witness type="edition" xml:id="AG">ed. Al-Gamil </witness>
+                    <witness type="manuscript" xml:id="P">Library of the
+Hungarian Academy of
+Sciences, ms.
+Kaufmann A 280</witness>
+                    <witness type="manuscript" xml:id="L1">ms. Leiden, UB, Or.
+4779 = formerly
+Warner 41 (= MS
+Maagarim)</witness>
+                    <witness type="manuscript" xml:id="P">ms. Paris, héb. 670</witness>
+                    <witness type="manuscript" xml:id="RC">ms. SP, IOM, C 103</witness>
                 </listWit>
             </sourceDesc>
         </fileDesc>

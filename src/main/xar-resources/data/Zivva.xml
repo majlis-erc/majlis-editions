@@ -6,36 +6,59 @@
                 <title level="m">MAJLIS – The Transformation of Jewish Literature in Arabic in the
                     Islamicate World.</title>
                 <author>Yešuʿa ben Yehuda</author>
-                <editor>Gregor Schwarb</editor>
-                <editor>Maximilian de Molière</editor>
+                <editor role="general-editor">Ronny Vollandt</editor>
+                <editor role="editor">Gregor Schwarb</editor>
+                <editor role="collaborator">Nabih Bashir</editor>
+                <editor role="encoding">Maximilian de Molière</editor>
             </titleStmt>
             <publicationStmt>
                 <p>MAJLIS – The Transformation of Jewish Literature in Arabic in the Islamicate
                     World.</p>
             </publicationStmt>
             <sourceDesc>
-                <!-- ============================================================= -->
-                <!-- LIST OF WITNESSES                                             -->
-                <!-- Define all manuscripts and editions you'll reference          -->
-                <!-- Each witness needs a unique xml:id for citation               -->
-                <!-- ============================================================= -->
                 <listWit>
-                    <!-- Example manuscript witness -->
-                    <witness xml:id="MS1">ms. [Library], [Call Number], [Description]</witness>
-                    <!-- Example printed edition witness -->
-                    <witness xml:id="ED1">ed. [Editor Name], [Publication Info]</witness>
-                    <!-- Add more witnesses as needed -->
-                    <!-- <witness xml:id="MS2">ms. [Library], [Call Number]</witness> -->
-                    <!-- <witness xml:id="ED2">ed. [Editor Name]</witness> -->
+                    <witness xml:id="RNL_Yevr-Arab_I_2134">RNL Yevr.-Arab. I 2134</witness>
+<witness xml:id="RNL_Yevr-Arab_I_0551">RNL Yevr.-Arab. I 0551</witness>
+<witness xml:id="RNL_Yevr-Arab_I_2132">RNL Yevr.-Arab. I 2132</witness>
+<witness xml:id="RNL_Yevr-Arab_I_4140">RNL Yevr.-Arab. I 4140</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1148">RNL Yevr.-Arab. I 1148</witness>
+<witness xml:id="RNL_Yevr-Arab_II_0969">RNL Yevr.-Arab. II 0969</witness>
+<witness xml:id="RNL_Yevr-Arab_I_2001">RNL Yevr.-Arab. I 2001</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1989">RNL Yevr.-Arab. I 1989</witness>
+<witness xml:id="RNL_Yevr-Arab_I_0903">RNL Yevr.-Arab. I 0903</witness>
+<witness xml:id="RNL_Yevr-Arab_I_0733">RNL Yevr.-Arab. I 0733</witness>
+<witness xml:id="RNL_Yevr-Arab_I_2074">RNL Yevr.-Arab. I 2074</witness>
+<witness xml:id="RNL_Yevr-Arab_I_3030">RNL Yevr.-Arab. I 3030</witness>
+<witness xml:id="RNL_Yevr-Arab_I_0904">RNL Yevr.-Arab. I 0904</witness>
+<witness xml:id="RNL_Yevr-Arab_II_0871_6">RNL Yevr.-Arab. II 0871/6</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1010">RNL Yevr.-Arab. I 1010</witness>
+<witness xml:id="RNL_Yevr-Arab_I_2574">RNL Yevr.-Arab. I 2574</witness>
+<witness xml:id="RNL_Yevr-Arab_I_0084">RNL Yevr.-Arab. I 0084</witness>
+<witness xml:id="RNL_Yevr-Arab_II_0058">RNL Yevr.-Arab. II 0058</witness>
+<witness xml:id="RNL_Yevr-Arab_II_0069">RNL Yevr.-Arab. II 0069</witness>
+<witness xml:id="RNL_Yevr-Arab_I_1802">RNL Yevr.-Arab. I 1802</witness>
+<witness xml:id="RNL_Yevr-Arab_II_1151">RNL Yevr.-Arab. II 1151</witness>
+<witness xml:id="RNL_Yevr-Arab_II_0881_4">RNL Yevr.-Arab. II 0881/4</witness>
+<witness xml:id="BL_Or_5554">BL Or. 5554</witness>
+<witness xml:id="BL_Or_2582_2">BL Or. 2582/2</witness>
+<witness xml:id="RNL_Yevr-Arab_I_2014">RNL Yevr.-Arab. I 2014</witness>
+<witness xml:id="RNL_Yevr-Arab_II_1219">RNL Yevr.-Arab. II 1219</witness>
+<witness xml:id="RNL_Arab-Yevr_321">RNL Arab.-Yevr. 321</witness>
+<witness xml:id="RNL_Arab-Yevr_335">RNL Arab.-Yevr. 335</witness>
+<witness xml:id="RNL_Arab-Yevr_359">RNL Arab.-Yevr. 359</witness>
+<witness xml:id="RNL_Arab-Yevr_017">RNL Arab.-Yevr. 017</witness>
+<witness xml:id="RNL_Arab-Yevr_125">RNL Arab.-Yevr. 125</witness>
+<witness xml:id="RNL_Arab-Yevr_132">RNL Arab.-Yevr. 132</witness>
+<witness xml:id="RNL_Arab-Yevr_221">RNL Arab.-Yevr. 221</witness>
+<witness xml:id="RNL_Arab-Yevr_260">RNL Arab.-Yevr. 260</witness>
+<witness xml:id="RNL_Arab-Yevr_079">RNL Arab.-Yevr. 079</witness>
+<witness xml:id="RNL_Arab-Yevr_180">RNL Arab.-Yevr. 180</witness>
+<witness xml:id="RNL_Arab-Yevr_314">RNL Arab.-Yevr. 314</witness>
+<witness xml:id="RNL_Yevr-Arab_II_2126">RNL Yevr.-Arab. II 2126</witness>
                 </listWit>
             </sourceDesc>
         </fileDesc>
     </teiHeader>
-    <!-- ===================================================================== -->
-    <!-- FACSIMILE SECTION                                                     -->
-    <!-- Links to manuscript page images                                       -->
-    <!-- Each <surface> represents one page with a unique xml:id              -->
-    <!-- ===================================================================== -->
     <facsimile>
         <surface n="1" xml:id="surf-pb-1">
             <graphic mimeType="image/jpeg" url="Anwar0001.jpg"/>
@@ -63,7 +86,9 @@
         <body>
             <div xml:id="arHebr" type="main-ar-Hebr" xml:lang="ar-Hebr">
                 <div n="1" xml:id="arHebr_1">
-                    <p><pb facs="#surf-pb-1" n="z 462b"/></p>
+                    <p>
+                        <pb facs="#surf-pb-1" n="z 462b"/>
+                    </p>
                     <head>[מקדמה̈]</head>
                     <p>בשם י"י אל עולם<lb/>אמא בעד،<lb/>פאנני למא וצלת פי תפסיר אלתוראה̈ אלא אלכלאם
                         פי פאסוק תורה צוה לנו משה וג'، וכאנת עאדה̈ קום מן אלמפסרין קד ג̇רת באיראד
@@ -292,7 +317,8 @@
                         יתצ̇ח אלצחיח מן אלבאטל.</p>
                 </div>
                 <div n="1" xml:id="arHebr_4">
-                    <head>פצל</head><p>ואעלם אנה לא וג̇ה לאקתצארה ג̇ל ד̇כרה פי אלـתורה אלאכ̇רא עלא תחפיט̇
+                    <head>פצל</head>
+                    <p>ואעלם אנה לא וג̇ה לאקתצארה ג̇ל ד̇כרה פי אלـתורה אלאכ̇רא עלא תחפיט̇
                         אלמכלפין בהא איאהא מן דון כתאבתהא לא סימא מע כונהא אוסע מן אלמכתובה̈ ואשרח
                         ואבסט ואכת̇ר תפצילא מנהא، ומן ראא אן כתב אלמכ̇תצר ותאכ̇ד̇ פי מדאומה̈ קראءתה
                         ומלאזמה̈ דרסה ואליס באלאג̇תהאד פי תחפט̇ אגראצ̇ה כאן ג̇דירא באן יפעל מת̇ל
@@ -932,7 +958,9 @@
             </div>
             <div xml:id="ar" type="transliteration-ar" xml:lang="ar">
                 <div n="1" xml:id="ar_1">
-                    <p><pb facs="#surf-pb-1" n="z 462b"/></p>
+                    <p>
+                        <pb facs="#surf-pb-1" n="z 462b"/>
+                    </p>
                     <head>[مقدمة]</head>
                     <p>בשם י"י אל עולם<lb/>أمّا بعد،<lb/>فإنّني لمّا وصلت في تفسير التوراة إلى
                         الكلام في فاسوق תורה צוה לנו משה וג'، وكانت عادة قوم من المفسّرين قد جرت

@@ -208,7 +208,7 @@ pb-grid-action {
                         </app-header>
                         <main class="content-body">
                         <!-- Adjust which pb-views are displayed by default and in which order by referencing their number in "panel" (starting from 0) -->
-                            <pb-grid id="grid" panels="[0,1]" subscribe="transcription" emit="transcription">
+                            <pb-grid id="grid" panels="[2,0,1]" subscribe="transcription" emit="transcription">
                                 <template>
                                     <!-- template used for adding a new column: user can choose between translation, facsimile and notes -->
                                     <pb-panel emit="transcription">
